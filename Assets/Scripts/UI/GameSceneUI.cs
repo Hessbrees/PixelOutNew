@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
+using TMPro;
 public interface IGameSceneUI
 {
     public void SetActive();
@@ -11,7 +12,6 @@ public interface IGameSceneUI
 public class GameSceneUI : IGameSceneUI
 {
     GameObject gameSceneUI = GameObject.FindGameObjectWithTag("MenuUI").transform.Find("GameScene").gameObject;
-
     private IPauseUI pauseUI;
 
     [Inject]
@@ -26,4 +26,5 @@ public class GameSceneUI : IGameSceneUI
     }
     public void PauseButton() => pauseUI.SetActive();
     public void SetActive() => gameSceneUI.SetActive(!gameSceneUI.activeInHierarchy);
+
 }

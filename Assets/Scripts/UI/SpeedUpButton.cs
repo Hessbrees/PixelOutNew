@@ -9,12 +9,14 @@ public class SpeedUpButton : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
 
     private IGameManager gameManager;
     private IPlayerControler playerControler;
+    private IEnemyControl enemyControl;
 
     [Inject]
-    public void Setup(IGameManager gameManager, IPlayerControler playerControler)
+    public void Setup(IEnemyControl enemyControl, IGameManager gameManager, IPlayerControler playerControler)
     {
         this.gameManager = gameManager;
         this.playerControler = playerControler;
+        this.enemyControl = enemyControl;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -28,13 +30,15 @@ public class SpeedUpButton : MonoBehaviour, IPointerEnterHandler, IPointerUpHand
     IEnumerator DelayBackToNormal()
     {
         yield return new WaitForSeconds(5f);
-        gameManager.BackToNormalGravity();
-        playerControler.SetPlayerSpeedUpSizeBackToNormal();
+        enemyControl.ResetGravity();
+        enemyControl.ResetEnemySpawnAmount();
+        //gameManager.BackToNormalGravity();
     }
     void SpeedUpTrigger()
     {
-        gameManager.SpeedUpButton();
-        playerControler.SetPlayerSpeedUpSize(0.7f);
-        //123
+        //gameManager.SpeedUpButton();
+        enemyControl.AddGravity(5f);
+        enemyControl.SetEnemySpawnAmount(1);
+        playerControler.SetPlayerSpeedUpSize(0.95f);
     }
 }

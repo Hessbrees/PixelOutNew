@@ -5,7 +5,7 @@ using Zenject;
 
 public class UIManager : MonoBehaviour
 {
-    private IMenuUI menuUI;
+    
     private ILogoUI logoUI;
     private IMainMenuUI mainMenuUI;
     private ILanguageUI languageUI;
@@ -15,9 +15,8 @@ public class UIManager : MonoBehaviour
     private IDifficulty difficultyUI;
 
     [Inject]
-    public void Setup(IMenuUI menuUI,ILogoUI logoUI, IMainMenuUI mainMenuUI, ILanguageUI languageUI, ISettingsUI settingsUI, IStatsUI statsUI, IUpgradesUI upgradesUI, IDifficulty difficultyUI)
-    {
-        this.menuUI = menuUI;
+    public void Setup(ILogoUI logoUI, IMainMenuUI mainMenuUI, ILanguageUI languageUI, ISettingsUI settingsUI, IStatsUI statsUI, IUpgradesUI upgradesUI, IDifficulty difficultyUI)
+    { 
         this.logoUI = logoUI;
         this.mainMenuUI = mainMenuUI;
         this.languageUI = languageUI;

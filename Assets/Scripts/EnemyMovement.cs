@@ -20,7 +20,7 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         enemyControl.GetEnemyPrefab(enemy);
-        gameManager.BackToNormalGravity();
+        enemyControl.SpawnEnemyPool();
     }
     private void Start()
     {
@@ -30,10 +30,14 @@ public class EnemyMovement : MonoBehaviour
     {
         while(true)
         {
-            for(int i = 0; i< Random.Range(1,15); i++)
+            for(int i = 1; i <= enemyControl.GetEnemySpawnAmount(); i++)
             enemyControl.EnemyFlowControl();
 
-            yield return new WaitForSeconds(Random.Range(0.2f,1f));
+
+            yield return new WaitForSeconds(Random.Range(0.2f,0.5f));
         }
     }
+
+
+
 }

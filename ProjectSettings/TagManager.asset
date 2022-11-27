@@ -6,6 +6,9 @@ TagManager:
   tags:
   - MenuUI
   - Enemy
+  - GameManager
+  - Score
+  - Time
   layers:
   - Default
   - TransparentFX

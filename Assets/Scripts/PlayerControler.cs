@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using Zenject;
 public interface IPlayerControler
 {
     public void PlayerUpdateTouch(GameObject player);
     public void GetGameBoardPositions();
     public void EatingProcess(Vector3 food);
     public void GetPlayerStartingSize(float playerSize);
+    public Vector3 GetPlayerNormalSize();
 
     public float GetLeftGameBoard();
     public float GetRightGameBoard();
     public void SetPlayerSpeedUpSize(float speed);
     public void SetPlayerSpeedUpSizeBackToNormal();
+    public int GetPlayerNormalSizeValue();
 }
 
 public class PlayerControler : IPlayerControler
@@ -28,21 +31,28 @@ public class PlayerControler : IPlayerControler
     int easingID = -1;
     int easingScaleID = -1;
     int easingPlayerScaleID = -1;
-    //private float timeSpeed;
-
-    //PlayerColliderBechaviour
 
     private float transformedFood;
     private float efficiencyScale = 0.4f;
     private float playerNormalSize;
     private float playerSpeedUpSize = 0;
 
+    private IGameManager gameManager;
+    [Inject]
+    public void Setup(IGameManager gameManager)
+    {
+        this.gameManager = gameManager;
+    }
+
+    public Vector3 GetPlayerNormalSize() => new Vector3(Mathf.Sqrt(playerNormalSize), Mathf.Sqrt(playerNormalSize));
+
+    public int GetPlayerNormalSizeValue() => (int)playerNormalSize;
     public float GetLeftGameBoard() => leftGameBoardBoxCollider;
     public float GetRightGameBoard() => rightGameBoardBoxCollider;
     public void GetPlayerStartingSize(float playerSize) => playerNormalSize = playerSize;
     public void SetPlayerSpeedUpSize(float speed)
     {
-        if (playerSpeedUpSize < playerNormalSize - playerSpeedUpSize) playerSpeedUpSize += playerNormalSize*speed;
+        if (playerNormalSize * speed > 10) playerNormalSize *= speed;
     }
 
     public void SetPlayerSpeedUpSizeBackToNormal() => playerSpeedUpSize = 0;
@@ -88,13 +98,23 @@ public class PlayerControler : IPlayerControler
     {
 
         transformedFood = food.x * food.y;
-        if (food.x > player.transform.localScale.x) ;
+        if (food.x > player.transform.localScale.x) efficiencyScale = -0.1f ; // zmienic wartosc na stal¹ lub okolo 0.3 
         else if (transformedFood < (playerNormalSize - playerSpeedUpSize) * 0.2f) efficiencyScale = 1f;
         else if (transformedFood < (playerNormalSize - playerSpeedUpSize) * 0.4f) efficiencyScale = 0.9f;
         else if (transformedFood < (playerNormalSize - playerSpeedUpSize) * 0.6f) efficiencyScale = 0.8f;
         else efficiencyScale = 0.7f;
 
-
         playerNormalSize += transformedFood * efficiencyScale;
+        if(playerNormalSize <10)
+        {
+            gameManager.DisableAfterDeath();
+            gameManager.ShowFailedScreen();
+        }
+        if(playerNormalSize >100) // zmienic wartosc na caly screen
+        {
+            gameManager.DisableAfterDeath();
+            gameManager.ShowWinScreen();
+        }
     }
+
 }

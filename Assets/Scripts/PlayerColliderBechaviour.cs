@@ -22,7 +22,8 @@ public class PlayerColliderBechaviour : MonoBehaviour
 
             playerControler.EatingProcess(foodForPlayer);
 
-            Destroy(collision.gameObject);
+            //Destroy(collision.gameObject);
+            collision.gameObject.SetActive(false);
         }
     }
 
