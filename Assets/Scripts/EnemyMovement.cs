@@ -20,11 +20,18 @@ public class EnemyMovement : MonoBehaviour
     private void Awake()
     {
         enemyControl.GetEnemyPrefab(enemy);
-        enemyControl.SpawnEnemyPool();
+        //enemyControl.SpawnEnemyPool();
     }
-    private void Start()
+    private void OnEnable()
     {
+        enemyControl.GetEnemyPrefab(enemy);
+        enemyControl.SpawnEnemyPool();
         StartCoroutine(EnemySpawn());
+    }
+    private void OnDisable()
+    {
+        StopCoroutine(EnemySpawn());
+        enemyControl.DisactivateFlowControl();
     }
     IEnumerator EnemySpawn()
     {
@@ -32,7 +39,6 @@ public class EnemyMovement : MonoBehaviour
         {
             for(int i = 1; i <= enemyControl.GetEnemySpawnAmount(); i++)
             enemyControl.EnemyFlowControl();
-
 
             yield return new WaitForSeconds(Random.Range(0.2f,0.5f));
         }

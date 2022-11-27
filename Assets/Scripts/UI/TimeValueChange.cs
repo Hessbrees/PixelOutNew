@@ -28,6 +28,7 @@ public class TimeValueChange : MonoBehaviour
     {
         timer.Stop();
         gameManager.SetFinalTime(timer.Elapsed.ToString("mm\\:ss\\.ff"));
+        timer.Reset();
     }
     public void Update()
     {

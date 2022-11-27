@@ -7,6 +7,7 @@ using TMPro;
 public interface IGameSceneUI
 {
     public void SetActive();
+    public void ButtonsListener();
 }
 
 public class GameSceneUI : IGameSceneUI

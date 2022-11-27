@@ -12,4 +12,7 @@ public class PauseUI : IPauseUI
     GameObject pauseUI = GameObject.FindGameObjectWithTag("MenuUI").transform.Find("Pause").gameObject;
 
     public void SetActive() => pauseUI.SetActive(!pauseUI.activeInHierarchy);
+
+    
+
 }

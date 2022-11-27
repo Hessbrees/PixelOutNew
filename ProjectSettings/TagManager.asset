@@ -9,6 +9,7 @@ TagManager:
   - GameManager
   - Score
   - Time
+  - GameBoard
   layers:
   - Default
   - TransparentFX

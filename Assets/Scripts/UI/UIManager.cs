@@ -13,9 +13,12 @@ public class UIManager : MonoBehaviour
     private IStatsUI statsUI;
     private IUpgradesUI upgradesUI;
     private IDifficulty difficultyUI;
-
+    private IGameManager gameManager;
+    private IFailedScreen failedScreen;
+    private IWinScreenUI winScreenUI;
+    private IGameSceneUI gameSceneUI;
     [Inject]
-    public void Setup(ILogoUI logoUI, IMainMenuUI mainMenuUI, ILanguageUI languageUI, ISettingsUI settingsUI, IStatsUI statsUI, IUpgradesUI upgradesUI, IDifficulty difficultyUI)
+    public void Setup(ILogoUI logoUI, IMainMenuUI mainMenuUI, ILanguageUI languageUI, ISettingsUI settingsUI, IStatsUI statsUI, IUpgradesUI upgradesUI, IDifficulty difficultyUI, IGameManager gameManager, IFailedScreen failedScreen, IWinScreenUI winScreenUI, IGameSceneUI gameSceneUI)
     { 
         this.logoUI = logoUI;
         this.mainMenuUI = mainMenuUI;
@@ -24,6 +27,10 @@ public class UIManager : MonoBehaviour
         this.statsUI = statsUI;
         this.upgradesUI = upgradesUI;
         this.difficultyUI = difficultyUI;
+        this.gameManager = gameManager;
+        this.failedScreen = failedScreen;
+        this.winScreenUI = winScreenUI;
+        this.gameSceneUI = gameSceneUI;
     }
     private void Awake()
     {
@@ -34,6 +41,11 @@ public class UIManager : MonoBehaviour
         statsUI.ButtonsListener();
         upgradesUI.ButtonsListener();
         difficultyUI.ButtonsListener();
-    }
+        failedScreen.ButtonsListener();
+        winScreenUI.ButtonsListener();
+        gameSceneUI.ButtonsListener();
+     }
+
+    
 
 }

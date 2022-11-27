@@ -7,14 +7,19 @@ public interface IGameManager
 {
     public void DisableAfterDeath();
     public void ShowFailedScreen();
-
+    public void StartGame();
     public void ShowWinScreen();
     public void SetFinalTime(string time);
     public string GetFinalTime();
+
+    public void SetActive();
+
 }
 public class GameManager : IGameManager
 {
-    GameObject gameElements = GameObject.FindGameObjectWithTag("GameManager").gameObject;
+    GameObject gameBoard = GameObject.FindGameObjectWithTag("GameManager").transform.Find("GameBoard").gameObject;
+    
+
     private string finalTime;
     private IEnemyControl enemyControl;
     private IPlayerControler playerControler;
@@ -31,14 +36,27 @@ public class GameManager : IGameManager
         this.gameSceneUI = gameSceneUI;
         this.winScreenUI = winScreenUI;
     }
+    public void SetActive() => gameBoard.gameObject.SetActive(!gameBoard.gameObject.activeInHierarchy);
+
     public void DisableAfterDeath()
     {
-        gameElements.SetActive(false);
+        SetActive();
+        enemyControl.SetActive();
+        playerControler.SetActive();
+    }
+    public void StartGame()
+    {
+        SetActive();
+        playerControler.SetActive();
+        playerControler.ResetBody();
+        playerControler.GetPlayerStartingSize(10 * 10);
+        enemyControl.SetActive();
+        enemyControl.ResetIndex();
     }
 
     public void ShowFailedScreen()
     {
-        failedScreen .SetActive();
+        failedScreen.SetActive();
         gameSceneUI.SetActive();
     }
 

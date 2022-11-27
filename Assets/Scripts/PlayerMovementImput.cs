@@ -18,7 +18,7 @@ public class PlayerMovementImput : MonoBehaviour
     private void Awake()
     {
         playerControler.GetGameBoardPositions();
-        playerControler.GetPlayerStartingSize(transform.localScale.x * transform.localScale.y);
+        playerControler.GetPlayerStartingSize(10 * 10);
     }
     void Update()
     {

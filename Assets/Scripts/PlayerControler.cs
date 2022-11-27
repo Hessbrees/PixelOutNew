@@ -16,12 +16,13 @@ public interface IPlayerControler
     public void SetPlayerSpeedUpSize(float speed);
     public void SetPlayerSpeedUpSizeBackToNormal();
     public int GetPlayerNormalSizeValue();
+    public void SetActive();
+    public void ResetBody();
 }
 
 public class PlayerControler : IPlayerControler
 {
-    GameObject gameBoard = GameObject.Find("GameBoard").gameObject;
-    GameObject player = GameObject.FindGameObjectWithTag("Player").transform.Find("Body").gameObject;
+    GameObject player = GameObject.FindGameObjectWithTag("GameManager").transform.Find("Player").gameObject;
     Vector3 touchPosition;
     private Camera mainCamera = Camera.main;
 
@@ -45,7 +46,7 @@ public class PlayerControler : IPlayerControler
     }
 
     public Vector3 GetPlayerNormalSize() => new Vector3(Mathf.Sqrt(playerNormalSize), Mathf.Sqrt(playerNormalSize));
-
+    public void SetActive() => player.gameObject.SetActive(!player.gameObject.activeInHierarchy);
     public int GetPlayerNormalSizeValue() => (int)playerNormalSize;
     public float GetLeftGameBoard() => leftGameBoardBoxCollider;
     public float GetRightGameBoard() => rightGameBoardBoxCollider;
@@ -58,6 +59,8 @@ public class PlayerControler : IPlayerControler
     public void SetPlayerSpeedUpSizeBackToNormal() => playerSpeedUpSize = 0;
     public void GetGameBoardPositions()
     {
+        GameObject gameBoard = GameObject.FindGameObjectWithTag("GameBoard").gameObject;
+
         var gameBoardBoxCollider = gameBoard.GetComponent<BoxCollider2D>();
         leftGameBoardBoxCollider = (gameBoardBoxCollider.transform.localPosition.x - gameBoardBoxCollider.size.x / 2) * gameBoardBoxCollider.transform.localScale.x;
         rightGameBoardBoxCollider = (gameBoardBoxCollider.transform.localPosition.x + gameBoardBoxCollider.size.x / 2) * gameBoardBoxCollider.transform.localScale.x;
@@ -93,12 +96,18 @@ public class PlayerControler : IPlayerControler
             easingPlayerScaleID = LeanTween.scale(player, new Vector3(Mathf.Sqrt(playerNormalSize - playerSpeedUpSize), Mathf.Sqrt(playerNormalSize - playerSpeedUpSize)), timeSpeed).uniqueId;
         }
     }
-
+    public void ResetBody()
+    {
+        GameObject playerBody = GameObject.FindGameObjectWithTag("Player").transform.Find("Body").gameObject;
+        playerBody.transform.localScale = new Vector3(10,10);
+        playerBody.transform.position = new Vector3(0, -80);
+    }
     public void EatingProcess(Vector3 food)
     {
+        GameObject playerBody = GameObject.FindGameObjectWithTag("Player").transform.Find("Body").gameObject;
 
         transformedFood = food.x * food.y;
-        if (food.x > player.transform.localScale.x) efficiencyScale = -0.1f ; // zmienic wartosc na stal¹ lub okolo 0.3 
+        if (food.x > playerBody.transform.localScale.x) efficiencyScale = -0.4f ; // zmienic wartosc na stal¹ lub okolo 0.3 
         else if (transformedFood < (playerNormalSize - playerSpeedUpSize) * 0.2f) efficiencyScale = 1f;
         else if (transformedFood < (playerNormalSize - playerSpeedUpSize) * 0.4f) efficiencyScale = 0.9f;
         else if (transformedFood < (playerNormalSize - playerSpeedUpSize) * 0.6f) efficiencyScale = 0.8f;
@@ -110,7 +119,7 @@ public class PlayerControler : IPlayerControler
             gameManager.DisableAfterDeath();
             gameManager.ShowFailedScreen();
         }
-        if(playerNormalSize >100) // zmienic wartosc na caly screen
+        if(playerNormalSize >500) // zmienic wartosc na caly screen
         {
             gameManager.DisableAfterDeath();
             gameManager.ShowWinScreen();

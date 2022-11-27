@@ -14,11 +14,13 @@ public class DifficultyUI : IDifficulty
     GameObject difficultyUI = GameObject.FindGameObjectWithTag("MenuUI").transform.Find("Difficulty").gameObject;
     private IMainMenuUI mainMenuUI;
     private IGameSceneUI gameSceneUI;
+    private IGameManager gameManager;
     [Inject]
-    public void Setup(IMainMenuUI mainMenuUI, IGameSceneUI gameSceneUI)
+    public void Setup(IMainMenuUI mainMenuUI, IGameSceneUI gameSceneUI,IGameManager gameManager)
     {
         this.mainMenuUI = mainMenuUI;
         this.gameSceneUI = gameSceneUI;
+        this.gameManager = gameManager;
     }
     public void SetActive() => difficultyUI.SetActive(!difficultyUI.activeInHierarchy);
     public void ButtonsListener()
@@ -32,6 +34,10 @@ public class DifficultyUI : IDifficulty
     {
         gameSceneUI.SetActive();
         SetActive();
+        //startgame
+
+
+        gameManager.StartGame();
     }
 
     public void BackButton()
