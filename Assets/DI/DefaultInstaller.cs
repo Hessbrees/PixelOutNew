@@ -15,7 +15,7 @@ public class DefaultInstaller : MonoInstaller<DefaultInstaller>
         Container.Bind<IGameSceneUI>().To<GameSceneUI>().AsSingle();
         Container.Bind<IPauseUI>().To<PauseUI>().AsSingle();
         Container.Bind<IFailedScreen>().To<FailedScreenUI>().AsSingle();
-        Container.Bind<IWinScreenUI>().To<WinScreenUI>().AsSingle();
+        Container.Bind<IWinScreenUI>().To<WinScreenUI>().AsSingle();        
         
         
         Container.Bind<IPlayerControler>().To<PlayerControler>().AsSingle();
