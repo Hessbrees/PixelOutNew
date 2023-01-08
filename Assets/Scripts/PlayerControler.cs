@@ -68,10 +68,12 @@ public class PlayerControler : IPlayerControler
 
     public void PlayerUpdateTouch(GameObject player)
     {
-        if (Touchscreen.current.primaryTouch.press.IsActuated())
+        //if (Touchscreen.current.primaryTouch.press.IsActuated())
+        if(Input.GetMouseButtonDown(0))
         {
 
-            touchPosition = mainCamera.ScreenToWorldPoint(Touchscreen.current.primaryTouch.position.ReadValue());
+            //touchPosition = mainCamera.ScreenToWorldPoint(Touchscreen.current.primaryTouch.position.ReadValue());
+            touchPosition = mainCamera.ScreenToWorldPoint(Input.mousePosition);
 
             if (touchPosition.x > leftGameBoardBoxCollider && touchPosition.x < rightGameBoardBoxCollider)
             {
@@ -125,5 +127,4 @@ public class PlayerControler : IPlayerControler
             gameManager.ShowWinScreen();
         }
     }
-
 }

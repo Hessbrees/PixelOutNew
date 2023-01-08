@@ -13,19 +13,29 @@ public interface IGameSceneUI
 public class GameSceneUI : IGameSceneUI
 {
     GameObject gameSceneUI = GameObject.FindGameObjectWithTag("MenuUI").transform.Find("GameScene").gameObject;
+
     private IPauseUI pauseUI;
+    private IGameManager gameManager;
 
     [Inject]
-    public void Setup(IPauseUI pauseUI)
+    public void Setup(IPauseUI pauseUI, IGameManager gameManager)
     {
         this.pauseUI = pauseUI;
+        this.gameManager = gameManager;
     }
     public void ButtonsListener()
     {
         var buttonPause = gameSceneUI.transform.Find("Pause").GetComponent<Button>();
         buttonPause.onClick.AddListener(PauseButton);
     }
-    public void PauseButton() => pauseUI.SetActive();
+    public void PauseButton()
+    {
+        pauseUI.SetActive();
+        Time.timeScale = 0;
+        gameManager.Disable();
+    }
+
+
     public void SetActive() => gameSceneUI.SetActive(!gameSceneUI.activeInHierarchy);
 
 }

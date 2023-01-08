@@ -470,7 +470,7 @@ MonoBehaviour:
     includeDate: 0
     includeResolution: 0
     includeCounter: 1
-    counter: 17
+    counter: 21
     fileType: 0
     applicationPath: 0
     customDirectoryName: 
@@ -1108,7 +1108,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 998167049315303321, guid: bca6f36b6197416438dfd9edd2ec4346, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 998167049406650526, guid: bca6f36b6197416438dfd9edd2ec4346, type: 3}
       propertyPath: m_IsActive
@@ -1240,6 +1240,10 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 519420031}
+    - target: {fileID: 998167050211733231, guid: bca6f36b6197416438dfd9edd2ec4346, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 998167050289087689, guid: bca6f36b6197416438dfd9edd2ec4346, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -1252,6 +1256,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 998167050939887013, guid: bca6f36b6197416438dfd9edd2ec4346, type: 3}
+      propertyPath: m_text
+      value: You Win!
+      objectReference: {fileID: 0}
     - target: {fileID: 998167051033517860, guid: bca6f36b6197416438dfd9edd2ec4346, type: 3}
       propertyPath: m_text
       value: 'Time:'
@@ -1262,9 +1270,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 998167051124322000, guid: bca6f36b6197416438dfd9edd2ec4346, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7432085075619502949, guid: bca6f36b6197416438dfd9edd2ec4346, type: 3}
+      propertyPath: m_AdditionalShaderChannelsFlag
+      value: 25
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 7432085075619502949, guid: bca6f36b6197416438dfd9edd2ec4346, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: bca6f36b6197416438dfd9edd2ec4346, type: 3}
 --- !u!1001 &1944506295231561600
 PrefabInstance:

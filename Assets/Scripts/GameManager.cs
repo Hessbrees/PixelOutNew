@@ -13,7 +13,7 @@ public interface IGameManager
     public string GetFinalTime();
 
     public void SetActive();
-
+    public void Disable();
 }
 public class GameManager : IGameManager
 {
@@ -44,6 +44,14 @@ public class GameManager : IGameManager
         enemyControl.SetActive();
         playerControler.SetActive();
     }
+
+    public void Disable()
+    {
+        SetActive();
+        enemyControl.SetActive();
+        playerControler.SetActive();
+    }
+
     public void StartGame()
     {
         SetActive();

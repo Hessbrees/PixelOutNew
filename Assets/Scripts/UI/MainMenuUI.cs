@@ -45,7 +45,7 @@ public class MainMenuUI : IMainMenuUI
         var buttonStats = mainMenuUI.transform.Find("Stats").GetComponent<Button>();
         buttonStats.onClick.AddListener(StatsButton);
     }
-    public void ExitButton() => UnityEditor.EditorApplication.isPlaying = false;
+    public void ExitButton() => Application.Quit();
     public void StartButton()
     {
         difficulty.SetActive();
